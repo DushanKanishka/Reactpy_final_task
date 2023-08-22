@@ -72,22 +72,22 @@ def MyCrud():
 
 app = FastAPI()
 
-from pymongo import MongoClient
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
-#copy and pasting the mongodb URI
-uri= "mongodb+srv://ADMIN:admin123@cluster0.gsgo2ue.mongodb.net/"
-client=MongoClient (uri) #camel case
-db= client ["Reactpy_Task01"] # enter the db name
-Collection = db["Dushan"]
-
-
-#Checking the connection 
+uri = "mongodb+srv://root:1234@mongodblogin.pcv1to3.mongodb.net/SignUp"
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi("1"))
+db = client["SignUp"]
+collection = db["users"]
+# Send a ping to confirm a successful connection
 try:
-    client.admin.command("Ping")
-    print("Sucessfully connected Mongodb")
-
+    client.admin.command("ping")
+    print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
-        print(e)
+    print(e)
+
+
 
 def login(
     login_data: dict,
@@ -101,7 +101,7 @@ def login(
     print(document)
 
     # Insert the document into the collection
-    post_id = Collection.insert_one(document).inserted_id  # insert document
+    post_id = collection.insert_one(document).inserted_id  # insert document
     print(post_id)
 
     return {"message": "Login successful"}
