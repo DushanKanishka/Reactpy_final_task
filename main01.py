@@ -1,42 +1,41 @@
-from os import name
-from ssl import _PasswordType
 from fastapi import FastAPI
 from reactpy.backend.fastapi import configure
-from reactpy import component,event, html, use_state
-import reactpy as rp 
+from reactpy import component, event, html, use_state
+import reactpy as rp
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 
 
 @component
 def MyCrud():
-    ##creating state
+    ## Creating state
     alltodo = use_state([])
     name, set_name = use_state("")
     password, set_password = use_state(0)
 
     def mysubmit(event):
-        newtodo ={"name":name,"password":password}
+        newtodo = {"name": name, "password": password}
 
-        #push this to alltodo
-        alltodo.set_value(alltodo.value+[newtodo])
-        login(newtodo)#function call to login function using the submitted data
+        # push this to alltodo
+        alltodo.set_value(alltodo.value + [newtodo])
+        login(newtodo)  # function call to login function using the submitted data
 
-        #looping data from alltodo to show on web 
+    # looping data from alltodo to show on web
 
-        list = [
-            html.li(
+    list = [
+        html.li(
             {
-
+              
             },
-            f"{b}=>{i['name']};{i['password']}",
-            )
-            for b, i in enumerate(alltodo.alltodo.value)
-        ]
-        def handle_event(event):
-            print(event)
+            f"{b} => {i['name']} ; {i['password']} ",
+        )
+        for b, i in enumerate(alltodo.value)
+    ]
 
-        return html.div(
+    def handle_event(event):
+        print(event)
+
+    return html.div(
         {"style": {"padding": "10px"}},
         ## creating form for submission\
         html.form(
@@ -72,4 +71,3 @@ def MyCrud():
 
 
 app = FastAPI()
-
