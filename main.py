@@ -75,7 +75,7 @@ app = FastAPI()
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-uri = "mongodb+srv://root:1234@mongodblogin.pcv1to3.mongodb.net/SignUp"
+uri = "mongodb+srv://ramanayakedushan:dushan123@cluster0.yoxdzvp.mongodb.net/"
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi("1"))
 db = client["SignUp"]
